@@ -278,6 +278,76 @@
   }
 
   /* =========================================
+     SCREEN 1.5 — SELECT DEPARTMENT
+     ========================================= */
+  .select {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    background: var(--sky);
+  }
+  .select-back {
+    align-self: flex-start;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--muted);
+    font-family: inherit;
+    margin-bottom: 16px;
+    transition: border-color 0.15s;
+  }
+  .select-back:hover { border-color: var(--dark); color: var(--dark); }
+  .select-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .select-header h2 {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .select-header p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .dept-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+  }
+  .dept-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+  }
+  .dept-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(44,62,80,0.08);
+  }
+  .dept-card:active { transform: scale(0.97); }
+  .dept-card .dept-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+  .dept-card .dept-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .dept-card .dept-tag { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* =========================================
      SCREEN 2 — QUIZ (full screen)
      ========================================= */
   .quiz {
@@ -743,7 +813,7 @@
     <h1>你能通過<br><span class="accent">模擬面試</span>嗎？</h1>
     <p class="landing-sub">8 道真實面試情境・測測你的應對力</p>
 
-    <button class="landing-start" onclick="startQuiz()">開始挑戰</button>
+    <button class="landing-start" onclick="showScreen('screen-select')">開始挑戰</button>
     <p class="landing-hint">完全免費 ・ 不用登入 ・ 約 3 分鐘</p>
 
     <div class="landing-footer">
@@ -760,6 +830,51 @@
 </div>
 
 <!-- =============================================
+     SCREEN 1.5 — SELECT DEPARTMENT
+     ============================================= -->
+<div class="screen" id="screen-select">
+  <div class="select">
+    <button class="select-back" onclick="showScreen('screen-landing')">&larr;</button>
+    <div class="select-header">
+      <h2>你的目標是哪個學群？</h2>
+      <p>會依學群加入相關的面試情境題</p>
+    </div>
+    <div class="dept-grid">
+      <div class="dept-card" onclick="startQuiz('med')">
+        <span class="dept-icon">&#129658;</span>
+        <div class="dept-name">醫藥衛生</div>
+        <div class="dept-tag">醫學・護理・藥學</div>
+      </div>
+      <div class="dept-card" onclick="startQuiz('law')">
+        <span class="dept-icon">&#9878;&#65039;</span>
+        <div class="dept-name">法政</div>
+        <div class="dept-tag">法律・政治・公行</div>
+      </div>
+      <div class="dept-card" onclick="startQuiz('design')">
+        <span class="dept-icon">&#127912;</span>
+        <div class="dept-name">設計/藝術</div>
+        <div class="dept-tag">視傳・建築・美術</div>
+      </div>
+      <div class="dept-card" onclick="startQuiz('cs')">
+        <span class="dept-icon">&#128187;</span>
+        <div class="dept-name">資工/理工</div>
+        <div class="dept-tag">資工・電機・機械</div>
+      </div>
+      <div class="dept-card" onclick="startQuiz('biz')">
+        <span class="dept-icon">&#128202;</span>
+        <div class="dept-name">商管/財經</div>
+        <div class="dept-tag">企管・財金・經濟</div>
+      </div>
+      <div class="dept-card" onclick="startQuiz('edu')">
+        <span class="dept-icon">&#128218;</span>
+        <div class="dept-name">教育/社會</div>
+        <div class="dept-tag">教育・社工・心理</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
      SCREEN 2 — QUIZ
      ============================================= -->
 <div class="screen" id="screen-quiz">
@@ -767,7 +882,7 @@
     <!-- Header -->
     <div class="quiz-header">
       <div class="quiz-header-left">
-        <button class="quiz-close" onclick="backToLanding()" title="返回">&larr;</button>
+        <button class="quiz-close" onclick="showScreen('screen-select')" title="返回">&larr;</button>
         <span class="quiz-progress-mini" id="q-progress">1 / 8</span>
       </div>
       <span class="quiz-score-mini" id="q-score-mini">0 分</span>
@@ -983,11 +1098,102 @@ var funFacts = [
 ];
 
 /* ============================================
+   DEPARTMENT-SPECIFIC QUESTIONS (3 per dept)
+   ============================================ */
+var deptQuestions = {
+  med: [
+    { cat: '醫學倫理', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F469}\u200D\u{2695}\u{FE0F}', role: '醫學院面試官',
+      q: '如果你的病人拒絕接受你認為必要的治療，你會怎麼做？',
+      choices: ['直接說服家屬代為同意，繞過病人的意見', '尊重病人的決定，充分說明風險，並在法律允許範圍內提供替代方案', '強制執行治療，因為醫師最清楚什麼對病人好', '請病人簽切結書自行負責，然後不再介入'],
+      ans: 1, fb_good: '病人自主權是現代醫療倫理的核心。充分溝通、說明風險、尊重決定——這才是「以病人為中心」的醫療。', fb_bad: '這題考醫療倫理。現代醫學重視病人自主權，不能強迫或繞過病人意志，但也不能放著不管。正確做法是充分溝通後尊重最終決定。' },
+    { cat: '醫學動機', catBg: '#FCEEE9', catColor: '#B05A3F', avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{2695}\u{FE0F}', role: '醫學院面試官',
+      q: '為什麼選擇醫學/護理作為志願？',
+      choices: ['我從小就很憧憬穿白袍的樣子，醫師看起來很專業', '曾陪伴家人就醫的經歷讓我深刻感受到醫護人員的重要性，希望成為那樣的支柱', '醫師薪水穩定，而且社會地位高', '我數理成績很好，老師和家長都建議我讀醫'],
+      ans: 1, fb_good: '具體的生命經驗是最有說服力的動機。面試官想看到你對「醫療的本質」有真實體悟，而不是表面印象。', fb_bad: '面試官希望看到你對醫療有真實體悟，而不是外在誘因（薪水、地位）或他人的建議。用一個親身經歷來說明你為什麼想走這條路。' },
+    { cat: '醫療議題', catBg: '#E8F8F5', catColor: '#2D8B72', avatarClass: 'speaker-avatar-green', avatar: '\u{1F468}\u200D\u{2695}\u{FE0F}', role: '醫學院面試官',
+      q: '你如何看待台灣健保制度面臨的挑戰？',
+      choices: ['健保很好，維持現狀就行了', '健保讓醫師薪水太低，應該廢除', '健保讓全民享有優質醫療，但也面臨財務與人力壓力，未來醫師需思考如何在有限資源下提供最大效益', '這是政府的問題，跟讀醫學系沒有直接關係'],
+      ans: 2, fb_good: '展現了對醫療體系的宏觀視野！醫師不只是技術人員，也是醫療政策的利害關係人，這種思考很加分。', fb_bad: '醫學面試很重視你是否思考過「醫師的社會角色」。對健保制度有基本認識，展現你關心體制而不只是想當醫師。' }
+  ],
+  law: [
+    { cat: '法學思辨', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F468}\u200D\u{2696}\u{FE0F}', role: '法律學院面試官',
+      q: '你認為「法律」與「道德」有何不同？',
+      choices: ['法律就是道德的延伸，兩者本質上是一樣的', '法律是社會的強制規範，道德是個人內在約束，兩者有重疊但不完全相同', '道德比法律更重要，所以違法但合乎道德是可以的', '法律比道德更重要，因為法律有強制力'],
+      ans: 1, fb_good: '精準！法律有強制性，道德沒有；合法不一定合乎道德，合乎道德也不一定合法。理解這個區別是法學入門的基礎。', fb_bad: '法律與道德是法學核心問題。它們有交集但各自獨立——合法的事可能不道德（如高利貸），道德的事也可能違法（如安樂死）。' },
+    { cat: '律師倫理', catBg: '#FFF4E6', catColor: '#8B6914', avatarClass: 'speaker-avatar-orange', avatar: '\u{1F468}\u200D\u{2696}\u{FE0F}', role: '法律學院面試官',
+      q: '如果你是律師，客戶告訴你他確實犯了罪，你該怎麼辦？',
+      choices: ['立刻向法院揭露客戶的罪行，維護正義', '不主動揭露，但也不協助客戶說謊，在法律允許範圍內辯護', '幫助客戶想辦法脫罪，因為律師的職責就是替客戶贏', '拒絕辯護，因為你個人認為他有罪不值得被辯護'],
+      ans: 1, fb_good: '理解律師保密義務與不協助偽證之間的分際！律師有義務為當事人辯護，但不能主動協助其說謊或湮滅證據。', fb_bad: '律師有保密義務，不可主動揭露委託人的陳述，但也不能協助偽證。這是律師職業倫理的核心——在法律框架內盡力辯護。' },
+    { cat: '法學動機', catBg: '#FCEEE9', catColor: '#B05A3F', avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{2696}\u{FE0F}', role: '法律學院面試官',
+      q: '你為什麼想讀法律系？',
+      choices: ['律師的形象在電視劇裡很帥，收入也很好', '我想成為檢察官，把所有壞人繩之以法', '我對社會規則的形成很感興趣，希望透過法律保障不同群體的權益', '我是社會組，法律系排名不錯就填了'],
+      ans: 2, fb_good: '展現了對法律「保護人」功能的理解，而不只是追求權力或地位。這樣的動機能支撐你在法律學習的漫長路上。', fb_bad: '法律是需要深層熱情的領域。面試官希望看到你對正義、規則或社會問題有真實思考，而不是外在誘因或模糊的正義感。' }
+  ],
+  design: [
+    { cat: '設計思維', catBg: '#FCEEE9', catColor: '#B05A3F', avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{1F3A8}', role: '設計學院面試官',
+      q: '你如何平衡設計中的「美觀」與「功能性」？',
+      choices: ['美觀更重要，好看的東西自然讓人想用', '功能最重要，只要好用就行，不需要在意外觀', '好的設計讓美觀與功能相互強化，而不是非此即彼的選擇', '看客戶要什麼，有時要美觀有時要功能，沒有固定答案'],
+      ans: 2, fb_good: '優秀設計讓形式與功能渾然一體！Dieter Rams 說「好設計是美觀的」，同時也必須是有用的——你理解了這個核心。', fb_bad: '設計中美觀與功能不是對立的。「看客戶要什麼」雖然務實，但缺乏設計哲學。好的設計師會讓兩者相互強化，而不是二擇一。' },
+    { cat: '設計分析', catBg: '#E8F8F5', catColor: '#2D8B72', avatarClass: 'speaker-avatar-green', avatar: '\u{1F468}\u200D\u{1F3A8}', role: '設計學院面試官',
+      q: '描述一件讓你印象深刻的設計作品，你會怎麼說？',
+      choices: ['「Apple 的產品設計很美，就是很有質感。」', '「某個城市的指標系統設計，透過顏色和圖示解決了不同語言旅客的導引問題。」', '「我自己的作品最讓我印象深刻。」', '「我沒有特別注意設計，好用就好。」'],
+      ans: 1, fb_good: '具體分析設計如何解決問題，而不只是說「好看」——這就是設計思維！面試官想看到你的批判性欣賞能力。', fb_bad: '設計面試希望看到你能分析「為什麼好」，不只是「好看」。挑一個具體作品，說明它的設計選擇如何服務使用者需求。' },
+    { cat: '設計溝通', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F469}\u200D\u{1F3A8}', role: '設計學院面試官',
+      q: '作品被客戶批評「不夠好看」，但你的設計選擇有充分理由，你怎麼做？',
+      choices: ['立刻全部改成客戶喜歡的樣子，客戶永遠是對的', '堅持自己的設計，告訴客戶他不懂設計', '說明設計決策背後的邏輯，理解客戶的顧慮，再共同討論更好的解法', '把作品發到社群讓大家投票，用數據說服客戶'],
+      ans: 2, fb_good: '設計師需要既能捍衛有根據的決策，又能真正傾聽客戶需求——這種平衡是專業的展現。', fb_bad: '全部妥協是失去專業立場，完全不妥協是傲慢。設計師要能用語言說明設計選擇，同時理解客戶背後的真實需求。' }
+  ],
+  cs: [
+    { cat: '邏輯溝通', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F468}\u200D\u{1F4BB}', role: '資工學院面試官',
+      q: '你如何向一個完全不懂電腦的長輩解釋「演算法」是什麼？',
+      choices: ['「就是程式碼裡面的邏輯，很難用口語解釋。」', '「演算法就像食譜——按照步驟做，就能得到想要的結果。電腦的演算法也是一步步解決問題的方法。」', '「就是 if-else 和 for loop 的組合。」', '「演算法是很複雜的數學，一般人不需要懂。」'],
+      ans: 1, fb_good: '用生活類比解釋技術概念是頂尖工程師必備的溝通技巧！「食譜」的比喻簡單而精準，讓人一聽就懂。', fb_bad: '好的工程師不只會做，還要會說。用生活中的類比解釋技術概念，是溝通能力的展現，而不是「說不清楚就算了」。' },
+    { cat: '工程思維', catBg: '#FFF4E6', catColor: '#8B6914', avatarClass: 'speaker-avatar-orange', avatar: '\u{1F468}\u200D\u{1F4BB}', role: '資工學院面試官',
+      q: '程式跑出錯誤，你的第一步是什麼？',
+      choices: ['上 Stack Overflow 複製貼上解法', '先讀錯誤訊息，理解問題在哪，再系統性找出原因', '刪掉重寫，反正原本的壞了', '請同學或 ChatGPT 幫我看'],
+      ans: 1, fb_good: '讀懂錯誤訊息是工程師最重要的基本功！系統性 debug 而不是亂槍打鳥，才是真正的工程思維。', fb_bad: '好的工程師不逃避錯誤。先讀錯誤訊息 → 理解問題 → 縮小範圍 → 找到根因，這才是 debug 的正確流程。' },
+    { cat: '資工動機', catBg: '#FCEEE9', catColor: '#B05A3F', avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{1F4BB}', role: '資工學院面試官',
+      q: '你為什麼對電腦科學感興趣？',
+      choices: ['AI 很紅，資工薪水最高', '我從國中開始自己做小專題，有一次用程式解決了困擾我很久的問題，那個成就感讓我確定方向', '我數學很好，老師建議我讀理工', '資工是爸媽希望我填的志願'],
+      ans: 1, fb_good: '真實的問題解決體驗是最有說服力的動機！展現你是被「創造」和「解決問題」驅動的人，而不是外在誘因。', fb_bad: '資工的訓練很扎實，沒有真實熱情很難撐過去。展現你曾主動探索、動手做的經驗，比說「薪水高」或「老師建議」更有說服力。' }
+  ],
+  biz: [
+    { cat: '商業思維', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F468}\u200D\u{1F4BC}', role: '商學院面試官',
+      q: '如果你是一家傳統書店的老闆，面對電商衝擊，你會怎麼做？',
+      choices: ['放棄實體書店，全面轉型電商', '降價打折，跟電商比價格', '強化實體書店的「體驗」價值，如讀書會、選書策展、咖啡結合，創造電商無法取代的空間價值', '什麼都不做，等待市場回溫'],
+      ans: 2, fb_good: '找到差異化定位，而不是在對手最強的地方正面競爭——這是策略思維的精髓！實體書店的價值在於體驗，不在於價格。', fb_bad: '傳統書店的出路不在跟電商拼價格（必輸），而是找到電商無法複製的價值：人的連結、空間體驗、策展品味。' },
+    { cat: '商業分析', catBg: '#FFF4E6', catColor: '#8B6914', avatarClass: 'speaker-avatar-orange', avatar: '\u{1F469}\u200D\u{1F4BC}', role: '商學院面試官',
+      q: '你覺得「台灣便利商店文化」有什麼商業啟示？',
+      choices: ['就是很方便嘛，沒什麼特別的', '密度極高的便利商店展示了選址策略、商品組合優化和服務升級如何打造強大的消費者黏性', '7-11 做得很成功，其他國家直接複製就好', '便利商店對我來說只是買飲料的地方'],
+      ans: 1, fb_good: '從日常生活中提取商業邏輯，正是商業思維的核心！你看到了選址、SKU 管理、服務多元化背後的策略設計。', fb_bad: '商學院希望你能把生活場景轉化為商業分析。台灣便利商店的密度、服務種類、商品更新速度，背後都有深刻的商業邏輯。' },
+    { cat: '商管動機', catBg: '#E8F8F5', catColor: '#2D8B72', avatarClass: 'speaker-avatar-green', avatar: '\u{1F468}\u200D\u{1F4BC}', role: '商學院面試官',
+      q: '商學院課程很廣（財務、行銷、管理），你最想深入哪個領域？',
+      choices: ['我都想學，商學院什麼都很重要', '我對行銷特別有興趣，因為我喜歡研究為什麼人會做特定的消費決定，這跟心理學和社會觀察都有關', '我不確定，進去再說', '財務吧，因為財務相關工作薪水最高'],
+      ans: 1, fb_good: '說出一個領域，並連結你的好奇心與觀察，展現了自我認識和主動性！比「都想學」更讓人印象深刻。', fb_bad: '說「都想學」顯得沒有主見，「不確定」顯得沒做功課。挑一個你真的好奇的領域，說明這興趣從何而來，反而更加分。' }
+  ],
+  edu: [
+    { cat: '教育理念', catBg: '#E8F8F5', catColor: '#2D8B72', avatarClass: 'speaker-avatar-green', avatar: '\u{1F469}\u200D\u{1F3EB}', role: '教育學院面試官',
+      q: '你認為「好老師」最重要的特質是什麼？',
+      choices: ['很嚴格，讓學生不敢不認真學習', '成績教得很好，班上升學率很高', '能夠看見每個學生的獨特性，並創造讓他們願意嘗試和犯錯的安全環境', '很親切，跟學生打成一片像朋友一樣'],
+      ans: 2, fb_good: '你觸及了教育的核心：不只是知識傳遞，而是創造能讓人成長的環境。「看見學生」比「管好學生」更重要。', fb_bad: '教育不只是傳遞知識或維持秩序。嚴格不等於好、親切不等於有效。好老師的核心在於「看見每個學生」，創造安全的學習空間。' },
+    { cat: '教育議題', catBg: '#E3F0F8', catColor: '#357DA0', avatarClass: 'speaker-avatar-blue', avatar: '\u{1F468}\u200D\u{1F3EB}', role: '教育學院面試官',
+      q: '如果一個孩子在你的課堂持續干擾上課，你會怎麼做？',
+      choices: ['馬上送去輔導室，不要影響其他人', '在課後單獨和他談話，試著了解行為背後是否有困難或需求', '公開點名批評，讓其他同學引以為戒', '請家長到校，讓家長負責管教'],
+      ans: 1, fb_good: '行為問題通常是冰山一角！先理解「為什麼」再解決「怎麼辦」，這是教育者最重要的思維。', fb_bad: '干擾行為往往是求助信號。把問題往外推（輔導室、家長）不是解決根本，先試著理解孩子的處境才是教育者的責任。' },
+    { cat: '社會關懷', catBg: '#FFF4E6', catColor: '#8B6914', avatarClass: 'speaker-avatar-orange', avatar: '\u{1F469}\u200D\u{1F3EB}', role: '教育學院面試官',
+      q: '你如何看待「教育城鄉差距」這個議題？',
+      choices: ['這沒辦法解決，就是資源分配不均的問題', '只要學生夠努力，在哪裡都能成功', '城鄉差距不只是資源問題，也是機會和期望的差距，需要系統性支持和在地陪伴才能改善', '這是政府的責任，個人能做的有限'],
+      ans: 2, fb_good: '你看到了結構性問題的複雜性，沒有落入「努力就能成功」的簡化思維。理解這種複雜性，才能設計有意義的介入。', fb_bad: '城鄉差距是多層面的：不只是金錢資源，更是眼界、期望、榜樣的差距。「努力就能成功」忽略了結構性障礙，需要更深層的理解。' }
+  ]
+};
+
+/* ============================================
    STATE
    ============================================ */
 var shuffled = [], current = 0, score = 0, streak = 0, answered = false;
 var usedFacts = [];
 var wrongCats = [];
+var currentDept = null;
 
 /* Per-category tips for dynamic feedback */
 var catTips = {
@@ -998,7 +1204,25 @@ var catTips = {
   '未來規劃': '未來規劃不需要精確的時間表，但要有方向感。說出一個你好奇的領域 + 你打算怎麼探索（專題、實習），比「大一到大四」的模板好很多。',
   '臨場反應': '遇到不會的問題，最聰明的做法是：重複問題確認理解 → 結合已知盡力回答。教授看的是你的思考過程，不是正確答案。',
   '學習歷程': '談經歷時教授想聽的不是「你做了什麼」而是「你怎麼想」。試試：動機 → 遇到的困難 → 怎麼突破 → 對你的影響。',
-  '提問技巧': '最後的提問是你展現真誠興趣的機會。問一個你在研究科系時真的好奇的問題，比問交換、課業量等「Google 就查得到」的資訊好太多。'
+  '提問技巧': '最後的提問是你展現真誠興趣的機會。問一個你在研究科系時真的好奇的問題，比問交換、課業量等「Google 就查得到」的資訊好太多。',
+  '醫學倫理': '醫療倫理是醫學面試的重點。記住：病人自主權、知情同意、不傷害原則是三大核心。',
+  '醫學動機': '醫學動機要從真實生命經驗出發，而不是薪水、地位或他人期望。',
+  '醫療議題': '對醫療體制有基本認識，展現你關心的不只是「當醫師」，還有「醫療環境」。',
+  '法學思辨': '法律面試看重邏輯思辨能力。不要選邊站，而是展現你理解議題中的張力。',
+  '律師倫理': '律師倫理的核心是保密義務與不協助偽證之間的平衡。',
+  '法學動機': '法律需要深層熱情。展現你對正義或社會規則的真實思考，而不是外在誘因。',
+  '設計思維': '好的設計讓美觀與功能相互強化。展現你有設計哲學，而不只是技術。',
+  '設計分析': '設計面試要展現批判性欣賞能力——分析「為什麼好」，不只是「好看」。',
+  '設計溝通': '設計師需要能用語言說明設計決策，同時真正傾聽客戶需求。',
+  '邏輯溝通': '好的工程師不只會做，還要會用類比解釋技術概念給非技術人士聽。',
+  '工程思維': '讀懂錯誤訊息是工程師的基本功。系統性 debug 比亂槍打鳥重要。',
+  '資工動機': '展現你曾主動探索、動手做的經驗，比說「薪水高」更有說服力。',
+  '商業思維': '策略思維的精髓是找到差異化定位，而不是在對手最強的地方正面競爭。',
+  '商業分析': '商業思維的核心訓練是從日常生活場景中提取商業邏輯。',
+  '商管動機': '挑一個你真的好奇的領域，說明興趣從何而來，比「都想學」更加分。',
+  '教育理念': '教育的核心不是知識傳遞，而是創造讓學生能成長、願意嘗試的環境。',
+  '教育議題': '面對行為問題，先理解「為什麼」再解決「怎麼辦」。',
+  '社會關懷': '理解結構性問題的複雜性，不落入「努力就能成功」的簡化思維。'
 };
 
 function shuffle(arr) {
@@ -1027,8 +1251,12 @@ function showScreen(id) {
   window.scrollTo(0, 0);
 }
 
-function startQuiz() {
-  shuffled = shuffle(questions);
+function startQuiz(dept) {
+  currentDept = dept || currentDept || 'med';
+  // Mix: 5 random general + 3 department-specific
+  var general = shuffle(questions).slice(0, 5);
+  var specific = shuffle(deptQuestions[currentDept] || []);
+  shuffled = shuffle(general.concat(specific));
   current = 0; score = 0; streak = 0; answered = false; usedFacts = []; wrongCats = [];
   showScreen('screen-quiz');
   renderQuestion();
@@ -1039,7 +1267,7 @@ function backToLanding() {
 }
 
 function restart() {
-  startQuiz();
+  startQuiz(currentDept);
 }
 
 /* ============================================
