@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>面試挑戰 — 第21屆預約明天模擬面試</title>
+<meta name="description" content="高三生必玩！8道模擬面試情境題，測試你的面試應對力。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #EAF3FA;
+    --sky-deep: #D0E4F0;
+    --blue: #4A9EC5;
+    --blue-dark: #357DA0;
+    --coral: #E8886B;
+    --coral-deep: #D4714F;
+    --coral-light: #FCEEE9;
+    --orange: #F2A95B;
+    --orange-light: #FFF4E6;
+    --white: #FFFFFF;
+    --dark: #2C3E50;
+    --dark-soft: #4A5568;
+    --muted: #7B8CA3;
+    --border: #D6E3ED;
+    --green: #48BB78;
+    --green-bg: #F0FFF4;
+    --green-border: #C6F6D5;
+    --red-bg: #FFF5F5;
+    --red-border: #FED7D7;
+    --red-text: #C53030;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--sky);
+    color: var(--dark);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* =========================================
+     SCREENS — full page transitions
+     ========================================= */
+  .screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: none;
+    flex-direction: column;
+  }
+  #screen-landing {
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+  .screen.active {
+    display: flex;
+    animation: screenIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes screenIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================
+     SCREEN 1 — LANDING
+     ========================================= */
+  .landing {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px max(16px, env(safe-area-inset-bottom));
+    position: relative;
+    overflow: hidden;
+  }
+  .landing-bg {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(to top, rgba(74,158,197,0.06), transparent);
+    pointer-events: none;
+  }
+
+  /* Illustration row */
+  .landing-illust {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 340px;
+  }
+  .landing-illust img {
+    height: 190px;
+    object-fit: contain;
+  }
+  .landing-illust .illust-flip {
+    transform: scaleX(-1);
+  }
+
+  /* Decorative floating elements */
+  .deco {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .deco-bubble {
+    width: 36px; height: 28px;
+    border: 2px solid var(--border);
+    border-radius: 14px 14px 14px 4px;
+    background: var(--white);
+    opacity: 0.7;
+    box-shadow: 0 2px 6px rgba(44,62,80,0.04);
+  }
+  .deco-bubble-r {
+    border-radius: 14px 14px 4px 14px;
+  }
+  .deco-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    opacity: 0.35;
+  }
+  .deco-q {
+    font-size: 18px;
+    font-weight: 900;
+    opacity: 0.12;
+    color: var(--blue);
+  }
+  .deco-check {
+    font-size: 14px;
+    opacity: 0.18;
+  }
+  .deco-dots {
+    display: flex;
+    gap: 3px;
+    opacity: 0.5;
+  }
+  .deco-dots span {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+    animation: dotBounce 1.2s ease infinite;
+  }
+  .deco-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .deco-dots span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes dotBounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-3px); }
+  }
+  .landing-edition {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--white);
+    border: 1.5px solid var(--blue);
+    padding: 4px 14px;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .landing h1 {
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--dark);
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .landing h1 .accent { color: var(--coral); }
+  .landing-sub {
+    font-size: 15px;
+    color: var(--dark-soft);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-start {
+    width: 100%;
+    max-width: 320px;
+    padding: 18px;
+    background: var(--coral);
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 6px 24px rgba(232,136,107,0.35);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+  .landing-start:hover { background: var(--coral-deep); }
+  .landing-start:active { transform: scale(0.97); }
+
+  .landing-hint {
+    font-size: 12px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  .landing-footer {
+    position: absolute;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+  }
+  .landing-logos {
+    width: calc(100% - 32px);
+    max-width: 420px;
+    object-fit: contain;
+    opacity: 0.5;
+  }
+  .landing-bubbles {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .landing-bubble {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--dark-soft);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 6px 14px;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.05);
+  }
+  .landing-bubble:hover {
+    border-color: var(--blue);
+    background: #F5FAFD;
+  }
+  .landing-bubble .dot-live {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: blink 1.2s ease infinite;
+    flex-shrink: 0;
+  }
+  .landing-bubble .b-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* =========================================
+     SCREEN 2 — QUIZ (full screen)
+     ========================================= */
+  .quiz {
+    background: var(--white);
+    position: relative;
+  }
+
+  /* Quiz Header */
+  .quiz-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+  .quiz-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quiz-close {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    transition: border-color 0.15s;
+    font-family: inherit;
+  }
+  .quiz-close:hover { border-color: var(--dark); color: var(--dark); }
+  .quiz-progress-mini {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .quiz-score-mini {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  /* Progress bar */
+  .quiz-progress-bar {
+    height: 3px;
+    background: var(--sky);
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--coral));
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Quiz body */
+  .quiz-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 24px;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Question area with transitions */
+  .quiz-question-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .quiz-question-area.slide-out {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  .quiz-question-area.slide-in {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  /* Speaker block */
+  .speaker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .speaker-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .speaker-avatar-blue { background: #E3F0F8; }
+  .speaker-avatar-coral { background: var(--coral-light); }
+  .speaker-avatar-green { background: var(--green-bg); }
+  .speaker-avatar-orange { background: var(--orange-light); }
+  .speaker-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .speaker-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 99px; margin-top: 2px;
+  }
+
+  /* Question bubble */
+  .q-bubble {
+    background: var(--sky);
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    padding: 18px 20px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--dark);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  /* Choices */
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .choice {
+    width: 100%;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--dark);
+    line-height: 1.65;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .choice:hover:not(:disabled) {
+    border-color: var(--blue);
+    background: #F5FAFD;
+    transform: translateY(-1px);
+  }
+  .choice:active:not(:disabled) { transform: scale(0.99); }
+  .choice.correct {
+    background: var(--green-bg);
+    border-color: var(--green);
+    color: #22543D;
+    animation: correctPop 0.4s ease;
+  }
+  .choice.wrong {
+    background: var(--red-bg);
+    border-color: #FC8181;
+    color: var(--red-text);
+    animation: shake 0.4s ease;
+  }
+  .choice.highlight {
+    background: var(--green-bg);
+    border-color: var(--green);
+    color: #22543D;
+    border-style: dashed;
+  }
+
+  /* Feedback */
+  .feedback-area {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .feedback-area.show { display: flex; animation: slideUp 0.3s ease; }
+
+  .feedback-box {
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .feedback-box.good {
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    color: #22543D;
+  }
+  .feedback-box.bad {
+    background: var(--orange-light);
+    border: 1px solid #F5DEB3;
+    color: #7B5B2E;
+  }
+
+  .fun-fact-box {
+    background: var(--white);
+    border: 1px dashed var(--blue);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--dark-soft);
+  }
+  .fun-fact-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Next button (bottom sticky) */
+  .quiz-bottom {
+    padding: 16px 20px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    position: sticky;
+    bottom: 0;
+  }
+  .next-btn {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    display: none;
+    padding: 16px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .next-btn.show { display: block; animation: slideUp 0.2s ease; }
+  .next-btn:hover { background: var(--blue-dark); }
+  .next-btn:active { transform: scale(0.98); }
+
+  /* Streak toast */
+  .streak-toast {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: var(--orange);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+    transition: opacity 0.3s, transform 0.3s;
+    white-space: nowrap;
+  }
+  .streak-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* =========================================
+     SCREEN 3 — RESULT
+     ========================================= */
+  .result {
+    background: var(--sky);
+    align-items: center;
+    padding: 40px 20px;
+  }
+  .result-inner {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .result-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 24px rgba(44,62,80,0.08);
+    animation: resultReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .result-emoji { font-size: 52px; display: block; margin-bottom: 8px; }
+  .result-score { font-size: 52px; font-weight: 900; color: var(--blue); margin-bottom: 2px; }
+  .result-score-label { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .result-type {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .type-master { background: #FFF7E0; color: #B7791F; border: 1px solid #FCEFC7; }
+  .type-dark-horse { background: #E3F0F8; color: var(--blue-dark); border: 1px solid var(--sky-deep); }
+  .type-grower { background: var(--green-bg); color: #276749; border: 1px solid var(--green-border); }
+  .type-brave { background: var(--coral-light); color: var(--coral-deep); border: 1px solid #F5D3C8; }
+
+  .result-title { font-size: 20px; font-weight: 900; color: var(--dark); margin-bottom: 10px; }
+  .result-sub { font-size: 14px; color: var(--dark-soft); line-height: 1.75; margin-bottom: 20px; }
+  .tip-box {
+    background: var(--sky); border-radius: var(--radius-sm);
+    padding: 16px; text-align: left; margin-bottom: 20px; border: 1px solid var(--sky-deep);
+  }
+  .tip-box h4 { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+  .tip-box p { font-size: 14px; color: var(--dark-soft); line-height: 1.7; }
+
+  .result-actions { display: flex; flex-direction: column; gap: 10px; }
+  .btn-ghost {
+    width: 100%; padding: 14px; background: transparent;
+    color: var(--muted); font-size: 14px; font-weight: 600;
+    font-family: inherit; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* Register CTA */
+  .register-cta {
+    background: linear-gradient(135deg, var(--coral) 0%, var(--orange) 100%);
+    border-radius: var(--radius); padding: 28px 24px;
+    text-align: center; position: relative; overflow: hidden;
+    margin-bottom: 16px;
+    animation: slideUp 0.5s 0.3s ease both;
+  }
+  .register-cta::before {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.1);
+  }
+  .register-cta::after {
+    content: ''; position: absolute; bottom: -40px; left: -20px;
+    width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.08);
+  }
+  .register-cta > * { position: relative; z-index: 1; }
+  .register-cta .cta-label {
+    font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8);
+    margin-bottom: 8px; letter-spacing: 0.04em;
+  }
+  .register-cta h2 {
+    font-size: 22px; font-weight: 900; color: var(--white); line-height: 1.4; margin-bottom: 14px;
+  }
+  .register-cta .cta-info {
+    font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.8; margin-bottom: 6px;
+  }
+  .register-cta .cta-deadline {
+    display: inline-block; background: rgba(255,255,255,0.2);
+    border-radius: 99px; padding: 4px 14px;
+    font-size: 12px; font-weight: 700; color: var(--white);
+    margin-bottom: 18px; backdrop-filter: blur(4px);
+  }
+  .btn-register {
+    display: inline-block; background: var(--white); color: var(--coral-deep);
+    font-size: 16px; font-weight: 900; font-family: inherit;
+    padding: 15px 36px; border-radius: var(--radius-sm);
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  .btn-register:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+
+  /* Logos footer */
+  .result-logos {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .result-logos img {
+    width: 100%;
+    max-width: 400px;
+    object-fit: contain;
+  }
+  .result-footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+    padding-bottom: 20px;
+  }
+
+  /* =========================================
+     CONFETTI CANVAS
+     ========================================= */
+  #confetti-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 200;
+  }
+
+  /* =========================================
+     KEYFRAMES
+     ========================================= */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes correctPop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+  }
+  @keyframes resultReveal {
+    0% { opacity: 0; transform: scale(0.92) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  @media (min-width: 520px) {
+    .landing h1 { font-size: 34px; }
+    .landing-illust img { height: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- =============================================
+     SCREEN 1 — LANDING
+     ============================================= -->
+<div class="screen active" id="screen-landing">
+  <div class="landing">
+    <div class="landing-bg"></div>
+
+    <div class="landing-illust">
+      <!-- Decorative elements like poster -->
+      <div class="deco deco-bubble" style="top:-8px;left:8%"></div>
+      <div class="deco deco-dots" style="top:6px;left:calc(8% + 10px)"><span></span><span></span><span></span></div>
+      <div class="deco deco-bubble deco-bubble-r" style="top:-12px;right:6%"></div>
+      <div class="deco deco-dots" style="top:2px;right:calc(6% + 8px)"><span></span><span></span><span></span></div>
+      <div class="deco deco-q" style="top:30%;left:0">？</div>
+      <div class="deco deco-check" style="top:25%;right:2%">&#10003;</div>
+      <div class="deco deco-dot" style="bottom:30%;left:2%;background:var(--coral)"></div>
+      <div class="deco deco-dot" style="top:15%;right:15%;background:var(--blue)"></div>
+      <div class="deco deco-dot" style="bottom:20%;right:5%;background:var(--orange);width:6px;height:6px"></div>
+      <img src="assets/student.png" alt="">
+      <img src="assets/interviewer.png" alt="">
+    </div>
+
+    <div class="landing-edition">第 21 屆 預約明天</div>
+    <h1>你能通過<br><span class="accent">模擬面試</span>嗎？</h1>
+    <p class="landing-sub">8 道真實面試情境・測測你的應對力</p>
+
+    <button class="landing-start" onclick="startQuiz()">開始挑戰</button>
+    <p class="landing-hint">完全免費 ・ 不用登入 ・ 約 3 分鐘</p>
+
+    <div class="landing-footer">
+      <div class="landing-bubbles">
+        <a href="https://forms.gle/eSqSRxMNcTHpiqNa9" target="_blank" class="landing-bubble">
+          <span class="dot-live"></span>
+          <span id="landing-countdown"></span>
+          <span style="color:var(--blue);margin-left:2px">點我報名</span>
+        </a>
+      </div>
+      <img src="assets/logos-banner.png" alt="" class="landing-logos">
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     SCREEN 2 — QUIZ
+     ============================================= -->
+<div class="screen" id="screen-quiz">
+  <div class="quiz">
+    <!-- Header -->
+    <div class="quiz-header">
+      <div class="quiz-header-left">
+        <button class="quiz-close" onclick="backToLanding()" title="返回">&larr;</button>
+        <span class="quiz-progress-mini" id="q-progress">1 / 8</span>
+      </div>
+      <span class="quiz-score-mini" id="q-score-mini">0 分</span>
+    </div>
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="q-progress-fill" style="width:0%"></div>
+    </div>
+
+    <!-- Body -->
+    <div class="quiz-body">
+      <div class="quiz-question-area" id="q-area">
+        <div class="speaker">
+          <div class="speaker-avatar speaker-avatar-blue" id="q-avatar"></div>
+          <div>
+            <div class="speaker-name" id="q-role">教授面試官</div>
+            <div class="speaker-tag" id="q-cat"></div>
+          </div>
+        </div>
+
+        <div class="q-bubble" id="q-text"></div>
+
+        <div class="choices" id="q-choices"></div>
+
+        <div class="feedback-area" id="fb-area">
+          <div class="feedback-box" id="fb-box"></div>
+          <div class="fun-fact-box" id="ff-box">
+            <div class="fun-fact-label">面試小知識</div>
+            <div id="ff-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom sticky -->
+    <div class="quiz-bottom">
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">下一題</button>
+    </div>
+  </div>
+
+  <!-- Streak toast -->
+  <div class="streak-toast" id="streak-toast"></div>
+</div>
+
+<!-- =============================================
+     SCREEN 3 — RESULT
+     ============================================= -->
+<div class="screen" id="screen-result">
+  <div class="result">
+    <div class="result-inner">
+      <div class="result-card">
+        <span class="result-emoji" id="r-emoji"></span>
+        <div class="result-score" id="r-score">0</div>
+        <div class="result-score-label">總分</div>
+        <div class="result-type" id="r-type"></div>
+        <div class="result-title" id="r-title"></div>
+        <div class="result-sub" id="r-sub"></div>
+        <div class="tip-box" id="r-tip"></div>
+        <div class="result-actions">
+          <button class="btn-ghost" onclick="restart()">再挑戰一次</button>
+        </div>
+      </div>
+
+      <div class="register-cta">
+        <div class="cta-label">想要真人指導？</div>
+        <h2>4/25 免費模擬面試<br>各領域專家親自教你</h2>
+        <div class="cta-info">
+          4 月 25 日（六）09:00 — 12:00<br>
+          台北市文山區景中街 36 號 3 樓<br>
+          近景美捷運站 2 號出口
+        </div>
+        <div class="cta-deadline" id="cta-deadline"></div>
+        <br>
+        <a href="https://forms.gle/eSqSRxMNcTHpiqNa9" target="_blank" class="btn-register">立即免費報名</a>
+      </div>
+
+      <div class="result-logos">
+        <img src="assets/logos-banner.png" alt="主辦・協辦單位">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================
+   DATA
+   ============================================ */
+var REGISTER_URL = 'https://forms.gle/eSqSRxMNcTHpiqNa9';
+
+var questions = [
+  {
+    cat: '自我介紹', catBg: '#E3F0F8', catColor: '#357DA0',
+    avatarClass: 'speaker-avatar-blue', avatar: '\u{1F469}\u200D\u{1F4BC}', role: '教授面試官',
+    q: '請在2分鐘內介紹你自己，包括你為什麼想讀這個科系。',
+    choices: [
+      '先列出自己的成績排名和競賽得獎紀錄，再補充為什麼對科系有興趣',
+      '用一個感人的童年故事開頭，說明自己從小就立志讀這個科系',
+      '簡介背景後，用一個具體經歷說明對科系的興趣，並連結未來想深入的方向',
+      '按照備審資料的順序，把每一項經歷都完整唸過一遍'
+    ],
+    ans: 2,
+    fb_good: '好的自我介紹是「有結構的故事」：簡短背景 \u2192 一個具體經歷帶出動機 \u2192 連結未來方向。重點不是多，是讓教授記住你。',
+    fb_bad: '很多人會犯的錯：用成績開場（教授已經看過了）、編造從小的夢想（容易被追問穿幫）、或把備審唸一遍（沒有重點）。最好用一個真實經歷帶出動機，讓教授覺得「這個人真的想過」。'
+  },
+  {
+    cat: '選系動機', catBg: '#E8F8F5', catColor: '#2D8B72',
+    avatarClass: 'speaker-avatar-green', avatar: '\u{1F468}\u200D\u{1F3EB}', role: '系所招生委員',
+    q: '你為什麼選擇我們學校的這個科系，而不是其他學校？',
+    choices: [
+      '因為貴校是這個領域排名最好的學校之一，資源最豐富',
+      '我看過貴系畢業學長姐的發展都很好，就業率很高',
+      '我研究過貴系的特色課程和某位教授的研究方向，和我在高中做的專題高度相關',
+      '我對這個領域很有熱情，而且貴校的校風很自由，很適合我'
+    ],
+    ans: 2,
+    fb_good: '最有說服力的動機是「具體且專屬的」——說出只有這個系才有的東西（某門課、某位教授、某個實驗室），再連結你自己的經歷。這表示你真的做過功課。',
+    fb_bad: '說排名好、就業率高、校風自由，聽起來合理但其實是「套用在任何學校都成立」的答案。教授想聽的是：為什麼是「我們」？說出一個具體的、只有這個系才有的特色，再連結你的經歷。'
+  },
+  {
+    cat: '個人特質', catBg: '#FCEEE9', catColor: '#B05A3F',
+    avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{1F52C}', role: '系上教授',
+    q: '請說說你的一個缺點，以及你如何克服它。',
+    choices: [
+      '「我比較心急，但我覺得這也是因為我對事情很有責任感。」',
+      '「我的缺點是太追求完美，所以做報告都會花比別人更多時間。」',
+      '「我以前容易拖延，後來我開始用待辦清單拆解任務，現在已經能準時完成大部分作業了。」',
+      '「我比較內向不擅長表達，但我覺得這讓我更擅長傾聽和觀察。」'
+    ],
+    ans: 2,
+    fb_good: '好的回答公式：真實缺點 + 具體改善行動 + 看得到的成長。「拖延 \u2192 用待辦清單 \u2192 準時完成」是完整的故事弧線，展現自我覺察和行動力。',
+    fb_bad: '常見陷阱：把缺點包裝成優點（「心急是因為負責」「內向所以擅長傾聽」），或用「太完美」這種面試官一秒就識破的答案。教授聽過太多了。真正加分的是：承認真實缺點，說出你「做了什麼」來改善。'
+  },
+  {
+    cat: '壓力應對', catBg: '#FFF4E6', catColor: '#8B6914',
+    avatarClass: 'speaker-avatar-orange', avatar: '\u{1F468}\u200D\u{1F4BC}', role: '嚴肅型考官',
+    q: '（突然打斷你）等等，你說的那個經歷聽起來很普通，有什麼特別的嗎？',
+    choices: [
+      '禮貌地說「謝謝教授的提問」，然後重新用更精簡的方式說一遍',
+      '馬上補充另一個更厲害的經歷來取代剛剛說的',
+      '微笑著停頓一下，然後針對剛才的經歷補充一個具體的細節和你的收穫',
+      '誠懇地承認「確實不算特別」，然後說自己還有其他更值得分享的經歷'
+    ],
+    ans: 2,
+    fb_good: '被質疑時最好的策略是「不閃躲，加深度」。不需要換話題或否定自己，而是在原本的經歷上補充更具體的細節和反思，展現你的穩定和思考深度。',
+    fb_bad: '很多人的直覺反應是「換一個更厲害的」或「先禮貌回應再重講」，但這等於承認自己剛才說的不好。面試官可能只是在測試你的抗壓性。最好的做法是穩住、不換題、在同一個經歷上挖更深。'
+  },
+  {
+    cat: '未來規劃', catBg: '#E3F0F8', catColor: '#357DA0',
+    avatarClass: 'speaker-avatar-blue', avatar: '\u{1F469}\u200D\u{1F4BC}', role: '教授面試官',
+    q: '你大學四年有什麼規劃？',
+    choices: [
+      '大一打好基礎、大二修進階課、大三找實習、大四做畢業專題，按部就班充實自己',
+      '我想雙主修/輔系，多拿幾個學位，讓自己更有競爭力',
+      '我對某個領域有興趣，計畫大二開始跟教授做專題研究，大三去相關企業實習，看看自己更適合學術還是業界',
+      '我想先好好體驗大學生活，多參加社團認識朋友，找到自己真正的興趣'
+    ],
+    ans: 2,
+    fb_good: '最加分的規劃是「有方向感但保持彈性」。說出一個你感興趣的具體領域，搭配可行的探索計畫（專題、實習），再表示會根據探索結果調整方向。教授想看到你有思考，但不是死板的 SOP。',
+    fb_bad: '「大一基礎大二進階」太像模板、「雙主修」聽起來積極但沒有方向感、「體驗大學生活」則太模糊。教授想聽的是你對某個方向的好奇心和探索計畫，不是制式的時間表。'
+  },
+  {
+    cat: '臨場反應', catBg: '#E8F8F5', catColor: '#2D8B72',
+    avatarClass: 'speaker-avatar-green', avatar: '\u{1F468}\u200D\u{1F3EB}', role: '系上教授',
+    q: '教授問了一個你完全沒準備過的專業問題，你聽不太懂，這時你應該？',
+    choices: [
+      '根據自己的理解嘗試回答，展現積極態度，不要讓場面冷掉',
+      '誠實說自己目前還不夠了解，但說明自己會怎麼去研究這個問題',
+      '先重複一次教授的問題確認自己理解正確，再結合自己知道的內容盡力回答',
+      '坦白說「這個我沒準備到」，然後請教授能不能換一個問題'
+    ],
+    ans: 2,
+    fb_good: '「重複問題 + 結合已知作答」是最聰明的策略。重複問題可以確認理解、也幫自己爭取思考時間，再用你已知的知識盡力回答，教授看的是你的思考過程。',
+    fb_bad: '硬猜硬答容易暴露知識缺口、坦白放棄太可惜、而「不夠了解但會去研究」雖然誠實但沒有展現思考能力。面試不是考試，教授更想看你怎麼面對未知，而不是正確答案。'
+  },
+  {
+    cat: '學習歷程', catBg: '#FCEEE9', catColor: '#B05A3F',
+    avatarClass: 'speaker-avatar-coral', avatar: '\u{1F469}\u200D\u{1F52C}', role: '系上教授',
+    q: '你的學習歷程檔案裡有參加科展，請說說你從中學到什麼。',
+    choices: [
+      '詳細說明整個實驗流程、使用的方法和最終的研究成果',
+      '強調團隊合作的經驗，說明每個組員的分工和合作過程',
+      '說明當初的研究動機、過程中遇到的瓶頸、你如何突破，以及這段經歷如何影響你的思維',
+      '聚焦在得獎成績，並說明評審給了什麼樣的肯定和回饋'
+    ],
+    ans: 2,
+    fb_good: '教授想聽的不是你「做了什麼」，而是「你怎麼想」。最好的回答結構是：動機 \u2192 遇到的困難 \u2192 你怎麼解決 \u2192 這段經歷對你的影響。展現思考過程比展現成果更重要。',
+    fb_bad: '詳述流程顯得像在報告、強調團隊沒有突出你個人、聚焦得獎則太表面。教授每年聽幾百個「我得了什麼獎」，他更想知道：你為什麼做這個研究？卡住的時候怎麼辦？這段經歷怎麼改變你？'
+  },
+  {
+    cat: '提問技巧', catBg: '#FFF4E6', catColor: '#8B6914',
+    avatarClass: 'speaker-avatar-orange', avatar: '\u{1F468}\u200D\u{1F4BC}', role: '招生委員',
+    q: '面試最後，考官問：「你有什麼問題想問我們嗎？」你應該怎麼回答？',
+    choices: [
+      '問系上的課業壓力大不大、一週大概要上幾小時的課',
+      '問系上有沒有海外交換或出國留學的機會',
+      '問一個你在研究科系時真的好奇的具體問題，例如某門特色課程的學習方式',
+      '問教授對於這個領域未來發展的看法，展現你的前瞻性'
+    ],
+    ans: 2,
+    fb_good: '最好的提問是「從你真正的好奇心出發」。問一個你在研究科系時就想知道的具體問題，教授會感受到你是真的有做功課、真的有興趣。制式問題（交換、課業量）網站上都查得到。',
+    fb_bad: '問交換機會、課業壓力等資訊，雖然實際但網站上都有，顯得沒做功課。問教授對未來的看法聽起來有深度，但容易變成你在考教授。最加分的是問一個「只有你會問」的問題，展現你對科系的理解和好奇。'
+  }
+];
+
+var funFacts = [
+  '面試官平均在前 30 秒就形成第一印象，所以開場的自我介紹特別重要。',
+  '研究顯示，有準備過模擬面試的人，錄取率高出約 30%。',
+  '面試時的穿著建議：比該場合的 dress code 正式一個等級就好。',
+  '適度的手勢可以增加說服力，但太多反而讓人分心。',
+  '面試前深呼吸三次，可以有效降低緊張感、穩定聲音。',
+  '回答時善用「STAR 法則」（情境、任務、行動、結果），能讓故事更有說服力。',
+  '面試結束前的提問環節，其實是最容易被忽略的加分機會。',
+  '進門時的微笑和眼神接觸，比你想像中更能影響面試官的第一印象。'
+];
+
+/* ============================================
+   STATE
+   ============================================ */
+var shuffled = [], current = 0, score = 0, streak = 0, answered = false;
+var usedFacts = [];
+var wrongCats = [];
+
+/* Per-category tips for dynamic feedback */
+var catTips = {
+  '自我介紹': '自我介紹的重點不是「多」，而是讓教授記住你。練習用一個具體故事帶出動機，控制在 90 秒內。',
+  '選系動機': '選系動機要「具體且專屬」——說出只有這個系才有的東西，再連結你的經歷。避免說排名、就業率等套用任何學校都成立的理由。',
+  '個人特質': '談缺點時最怕「把缺點包裝成優點」，教授一秒就識破。試試：真實缺點 + 你做了什麼改善 + 現在的進步。',
+  '壓力應對': '被質疑時的黃金法則：不閃躲、不換題、在原本的回答上加深度。教授看的是你的穩定度，不是你有多少故事。',
+  '未來規劃': '未來規劃不需要精確的時間表，但要有方向感。說出一個你好奇的領域 + 你打算怎麼探索（專題、實習），比「大一到大四」的模板好很多。',
+  '臨場反應': '遇到不會的問題，最聰明的做法是：重複問題確認理解 → 結合已知盡力回答。教授看的是你的思考過程，不是正確答案。',
+  '學習歷程': '談經歷時教授想聽的不是「你做了什麼」而是「你怎麼想」。試試：動機 → 遇到的困難 → 怎麼突破 → 對你的影響。',
+  '提問技巧': '最後的提問是你展現真誠興趣的機會。問一個你在研究科系時真的好奇的問題，比問交換、課業量等「Google 就查得到」的資訊好太多。'
+};
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function getRandomFact() {
+  if (usedFacts.length >= funFacts.length) usedFacts = [];
+  var avail = funFacts.filter(function(_, i) { return usedFacts.indexOf(i) === -1; });
+  var idx = Math.floor(Math.random() * avail.length);
+  usedFacts.push(funFacts.indexOf(avail[idx]));
+  return avail[idx];
+}
+
+/* ============================================
+   SCREEN MANAGEMENT
+   ============================================ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  shuffled = shuffle(questions);
+  current = 0; score = 0; streak = 0; answered = false; usedFacts = []; wrongCats = [];
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function backToLanding() {
+  showScreen('screen-landing');
+}
+
+function restart() {
+  startQuiz();
+}
+
+/* ============================================
+   QUIZ LOGIC
+   ============================================ */
+function renderQuestion() {
+  var q = shuffled[current];
+  var total = shuffled.length;
+  var pct = Math.round((current / total) * 100);
+
+  document.getElementById('q-progress').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('q-score-mini').textContent = score + ' \u5206';
+  document.getElementById('q-progress-fill').style.width = pct + '%';
+
+  var av = document.getElementById('q-avatar');
+  av.textContent = q.avatar;
+  av.className = 'speaker-avatar ' + q.avatarClass;
+  document.getElementById('q-role').textContent = q.role;
+
+  var cat = document.getElementById('q-cat');
+  cat.textContent = q.cat;
+  cat.style.background = q.catBg;
+  cat.style.color = q.catColor;
+
+  document.getElementById('q-text').textContent = q.q;
+
+  var choicesEl = document.getElementById('q-choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach(function(c, i) {
+    var btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.textContent = c;
+    btn.onclick = function() { choose(i); };
+    choicesEl.appendChild(btn);
+  });
+
+  document.getElementById('fb-area').className = 'feedback-area';
+  document.getElementById('next-btn').className = 'next-btn';
+  answered = false;
+}
+
+function choose(i) {
+  if (answered) return;
+  answered = true;
+  var q = shuffled[current];
+  var btns = document.querySelectorAll('.choice');
+  btns.forEach(function(b) { b.disabled = true; });
+
+  var fbBox = document.getElementById('fb-box');
+
+  if (i === q.ans) {
+    var bonus = streak >= 2 ? 5 : 0;
+    score += 10 + bonus;
+    streak++;
+    btns[i].classList.add('correct');
+    fbBox.textContent = q.fb_good;
+    fbBox.className = 'feedback-box good';
+
+    if (streak >= 2) launchConfetti();
+    if (streak >= 3) showStreakToast(streak);
+  } else {
+    streak = 0;
+    btns[i].classList.add('wrong');
+    btns[q.ans].classList.add('highlight');
+    fbBox.textContent = q.fb_bad;
+    fbBox.className = 'feedback-box bad';
+    wrongCats.push(q.cat);
+  }
+
+  document.getElementById('q-score-mini').textContent = score + ' \u5206';
+
+  document.getElementById('ff-text').textContent = getRandomFact();
+  document.getElementById('fb-area').className = 'feedback-area show';
+
+  var next = document.getElementById('next-btn');
+  next.className = 'next-btn show';
+  next.textContent = current + 1 >= shuffled.length ? '\u770B\u7D50\u679C' : '\u4E0B\u4E00\u984C';
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= shuffled.length) {
+    showResult();
+    return;
+  }
+  var area = document.getElementById('q-area');
+  area.classList.add('slide-out');
+  setTimeout(function() {
+    renderQuestion();
+    area.classList.remove('slide-out');
+    area.classList.add('slide-in');
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        area.classList.remove('slide-in');
+      });
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 250);
+}
+
+/* ============================================
+   STREAK TOAST
+   ============================================ */
+function showStreakToast(n) {
+  var toast = document.getElementById('streak-toast');
+  toast.textContent = '\uD83D\uDD25 \u9023\u5C0D ' + n + ' \u984C\uFF01';
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 1800);
+}
+
+/* ============================================
+   RESULT
+   ============================================ */
+var personalityTypes = [
+  {
+    min: 100, emoji: '\uD83C\uDFC6',
+    type: '\u9762\u8A66\u9054\u4EBA\u578B', typeClass: 'type-master',
+    title: '\u4F60\u5DF2\u7D93\u6E96\u5099\u597D\u4E86\uFF01',
+    sub: function(s) { return '\u5F97\u4E86 ' + s + ' \u5206\uFF0C\u5C55\u73FE\u51FA\u512A\u79C0\u7684\u9762\u8A66\u61C9\u5C0D\u80FD\u529B\uFF01\u601D\u8DEF\u6E05\u6670\u3001\u6E96\u5099\u5145\u5206\uFF0C4/25 \u4F86\u73FE\u5834\u8B93\u5C08\u5BB6\u5E6B\u4F60\u6A21\u64EC\u5BE6\u6230\uFF0C\u80FD\u529B\u66F4\u4E0A\u4E00\u5C64\u6A13\uFF01'; },
+    tipH: '\u6700\u5F8C\u63D0\u9192',
+    tipP: '\u5225\u5FD8\u4E86\u78BA\u8A8D\u5730\u9EDE\uFF1A\u53F0\u5317\u5E02\u6587\u5C71\u5340\u666F\u4E2D\u885736\u865F3\u6A13\uFF08\u8FD1\u666F\u7F8E\u6377\u904B\u7AD92\u865F\u51FA\u53E3\uFF09\u3002\u5E36\u5099\u4EFD\u8CC7\u6599\uFF0C\u81EA\u4FE1\u5165\u5834\uFF01'
+  },
+  {
+    min: 70, emoji: '\uD83D\uDCA1',
+    type: '\u6F5B\u529B\u9ED1\u99AC\u578B', typeClass: 'type-dark-horse',
+    title: '\u518D\u7DF4\u4E00\u4E0B\u5C31\u80FD\u767C\u5149\uFF01',
+    sub: function(s) { return '\u5F97\u4E86 ' + s + ' \u5206\uFF0C\u57FA\u790E\u638C\u63E1\u5F97\u4E0D\u932F\u3002\u591A\u7DF4\u7FD2\u300C\u5177\u9AD4\u5316\u300D\u56DE\u7B54\u2014\u2014\u7528\u771F\u5BE6\u6545\u4E8B\u548C\u6578\u64DA\u652F\u6490\u6BCF\u4E00\u500B\u8AD6\u9EDE\u3002'; },
+    tipH: '\u5EFA\u8B70\u52A0\u5F37',
+    tipP: '\u7DF4\u7FD2 STAR \u6CD5\u5247\uFF1A\u60C5\u5883(Situation)\u2192\u4EFB\u52D9(Task)\u2192\u884C\u52D5(Action)\u2192\u7D50\u679C(Result)\u3002\u8B93\u6BCF\u500B\u56DE\u7B54\u90FD\u6709\u8840\u6709\u8089\u3001\u6709\u64DA\u53EF\u67E5\u3002'
+  },
+  {
+    min: 40, emoji: '\uD83C\uDF31',
+    type: '\u6210\u9577\u885D\u523A\u578B', typeClass: 'type-grower',
+    title: '\u6B63\u5728\u8D77\u6B65\uFF0C\u6F5B\u529B\u7121\u7AAE\uFF01',
+    sub: function(s) { return '\u5F97\u4E86 ' + s + ' \u5206\uFF0C\u9762\u8A66\u6280\u5DE7\u9084\u6709\u6210\u9577\u7A7A\u9593\u3002\u5225\u64D4\u5FC3\uFF0C4/25 \u7684\u6A21\u64EC\u9762\u8A66\u5C31\u662F\u5E6B\u52A9\u4F60\u7DF4\u7FD2\u7684\u6700\u597D\u6A5F\u6703\uFF01'; },
+    tipH: '\u73FE\u5728\u5C31\u884C\u52D5',
+    tipP: '4/25\uFF08\u516D\uFF099:00-12:00\uFF0C\u53F0\u5317\u5E02\u6587\u5C71\u5340\u666F\u4E2D\u885736\u865F3\u6A13\u3002\u5B8C\u5168\u514D\u8CBB\uFF0C\u8B93\u5404\u9818\u57DF\u5C08\u5BB6\u89AA\u81EA\u6307\u5C0E\u4F60\uFF01'
+  },
+  {
+    min: 0, emoji: '\uD83D\uDD25',
+    type: '\u52C7\u6C23\u6311\u6230\u578B', typeClass: 'type-brave',
+    title: '\u6562\u4F86\u6311\u6230\u5C31\u662F\u7B2C\u4E00\u6B65\uFF01',
+    sub: function(s) { return '\u5F97\u4E86 ' + s + ' \u5206\uFF0C\u4F46\u6562\u4F86\u6E2C\u8A66\u5C31\u8868\u793A\u4F60\u5728\u4E4E\u3002\u9762\u8A66\u6280\u5DE7\u662F\u53EF\u4EE5\u5B78\u7684\uFF0C4/25 \u4F86\u73FE\u5834\u8B93\u5C08\u5BB6\u5E6B\u4F60\u52A0\u901F\uFF01'; },
+    tipH: '\u5225\u932F\u904E\u9019\u6B21',
+    tipP: '\u6A21\u64EC\u9762\u8A66\u5C31\u662F\u8B93\u4F60\u5728\u5B89\u5168\u7684\u74B0\u5883\u4E0B\u7DF4\u7FD2\u3002\u7B54\u932F\u4E5F\u6C92\u95DC\u4FC2\uFF0C\u91CD\u8981\u7684\u662F\u5F9E\u5C08\u5BB6\u7684\u56DE\u994B\u4E2D\u5B78\u7FD2\u3002\u5B8C\u5168\u514D\u8CBB\uFF0C\u540D\u984D\u6709\u9650\uFF01'
+  }
+];
+
+function getPersonality(s) {
+  for (var i = 0; i < personalityTypes.length; i++) {
+    if (s >= personalityTypes[i].min) return personalityTypes[i];
+  }
+  return personalityTypes[personalityTypes.length - 1];
+}
+
+function showResult() {
+  showScreen('screen-result');
+  var p = getPersonality(score);
+
+  document.getElementById('r-emoji').textContent = p.emoji;
+  document.getElementById('r-title').textContent = p.title;
+  document.getElementById('r-sub').textContent = p.sub(score);
+
+  // Dynamic tips based on wrong categories
+  var tipEl = document.getElementById('r-tip');
+  if (wrongCats.length === 0) {
+    tipEl.innerHTML = '<h4>\u5168\u5C0D\uFF01\u6700\u5F8C\u63D0\u9192</h4><p>\u4F60\u7684\u9762\u8A66\u89C0\u5FF5\u975E\u5E38\u6B63\u78BA\uFF01\u5225\u5FD8\u4E86 4/25 \u4F86\u73FE\u5834\u5BE6\u969B\u7DF4\u7FD2\uFF0C\u300C\u77E5\u9053\u300D\u548C\u300C\u505A\u5230\u300D\u4E4B\u9593\u9084\u6709\u4E00\u6BB5\u8DDD\u96E2\uFF0C\u8B93\u5C08\u5BB6\u5E6B\u4F60\u6A21\u64EC\u5BE6\u6230\uFF01</p>';
+  } else {
+    var uniqueCats = [];
+    wrongCats.forEach(function(c) { if (uniqueCats.indexOf(c) === -1) uniqueCats.push(c); });
+    var tipParts = uniqueCats.slice(0, 3).map(function(c) {
+      return '<div style="margin-bottom:10px"><strong style="color:var(--coral)">' + c + '</strong><br>' + (catTips[c] || '') + '</div>';
+    });
+    var heading = uniqueCats.length === 1 ? '\u9019\u984C\u53EF\u4EE5\u52A0\u5F37' : '\u9019\u5E7E\u984C\u53EF\u4EE5\u52A0\u5F37';
+    tipEl.innerHTML = '<h4>' + heading + '</h4>' + tipParts.join('');
+  }
+
+  var typeEl = document.getElementById('r-type');
+  typeEl.textContent = p.type;
+  typeEl.className = 'result-type ' + p.typeClass;
+
+  // Animate score count up
+  var scoreEl = document.getElementById('r-score');
+  scoreEl.textContent = '0';
+  var target = score, step = 0, steps = 30;
+  var interval = setInterval(function() {
+    step++;
+    var ease = 1 - Math.pow(1 - step / steps, 3);
+    scoreEl.textContent = Math.round(target * ease);
+    if (step >= steps) { scoreEl.textContent = target; clearInterval(interval); }
+  }, 30);
+
+  setTimeout(function() { launchConfetti(); }, 300);
+  updateCountdown();
+}
+
+/* ============================================
+   COUNTDOWN
+   ============================================ */
+function updateCountdown() {
+  var deadline = new Date('2026-04-20T23:59:59+08:00');
+  var now = new Date();
+  var diff = deadline - now;
+  var landingEl = document.getElementById('landing-countdown');
+  var ctaEl = document.getElementById('cta-deadline');
+
+  if (diff <= 0) {
+    if (landingEl) landingEl.textContent = '\u5831\u540D\u5373\u5C07\u622A\u6B62\uFF01';
+    if (ctaEl) ctaEl.textContent = '\u5831\u540D\u5373\u5C07\u622A\u6B62\uFF01';
+    return;
+  }
+  var days = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var txt = days > 0
+    ? '4/25 \u514D\u8CBB\u6A21\u64EC\u9762\u8A66\u30FB\u5831\u540D\u5012\u6578 ' + days + ' \u5929'
+    : '\u5831\u540D\u5012\u6578 ' + hours + ' \u5C0F\u6642\uFF01';
+  if (landingEl) landingEl.textContent = txt;
+  if (ctaEl) ctaEl.textContent = '\u5269 ' + days + ' \u5929\u622A\u6B62\uFF0C\u540D\u984D\u6709\u9650';
+}
+
+/* ============================================
+   CONFETTI
+   ============================================ */
+var confettiCanvas, confettiCtx, confettiPieces = [], confettiAnimId = null;
+var COLORS = ['#E8886B', '#4A9EC5', '#F2A95B', '#48BB78', '#9F7AEA', '#ED64A6'];
+
+function initConfetti() {
+  confettiCanvas = document.getElementById('confetti-canvas');
+  confettiCtx = confettiCanvas.getContext('2d');
+  resize();
+  window.addEventListener('resize', resize);
+}
+function resize() {
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+function launchConfetti() {
+  confettiPieces = [];
+  for (var i = 0; i < 50; i++) {
+    confettiPieces.push({
+      x: Math.random() * confettiCanvas.width,
+      y: -10 - Math.random() * 40,
+      w: 4 + Math.random() * 4, h: 8 + Math.random() * 6,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3,
+      rot: Math.random() * 360, rotV: (Math.random() - 0.5) * 8, opacity: 1
+    });
+  }
+  if (!confettiAnimId) animConfetti();
+}
+function animConfetti() {
+  confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  var alive = false;
+  confettiPieces.forEach(function(p) {
+    p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.rot += p.rotV;
+    if (p.y > confettiCanvas.height * 0.75) p.opacity -= 0.02;
+    if (p.opacity <= 0) return;
+    alive = true;
+    confettiCtx.save();
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.rot * Math.PI / 180);
+    confettiCtx.globalAlpha = Math.max(0, p.opacity);
+    confettiCtx.fillStyle = p.color;
+    confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    confettiCtx.restore();
+  });
+  if (alive) confettiAnimId = requestAnimationFrame(animConfetti);
+  else { confettiAnimId = null; confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }
+}
+
+/* ============================================
+   INIT
+   ============================================ */
+initConfetti();
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>
