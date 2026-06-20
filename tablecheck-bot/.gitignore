@@ -1,0 +1,10 @@
+# 個人設定（含帳密/聯絡資料）
+config.yaml
+
+# 瀏覽器持久化 profile（含登入 session）
+.browser-profile/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
